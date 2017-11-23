@@ -1,0 +1,4 @@
+= main idea
+
+dp, latexmath:[$dp_{i, diff} += dp_{j, diff} + 1$]
+
