@@ -1,0 +1,4 @@
+== main idea
+
+`std::unordered_map` and `std::sort`, be careful at comparision when key values are equals.
+
