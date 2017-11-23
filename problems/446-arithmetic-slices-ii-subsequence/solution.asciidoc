@@ -1,4 +1,8 @@
-= main idea
+== main idea
 
-dp, latexmath:[$dp_{i, diff} += dp_{j, diff} + 1$]
+dp, `dp[i][diff] += diff[j][diff] + 1`.
+
+== pitfalls
+
+`std::map` 的 `operator[]` 会插入一个 `0` 值如果 key 不存在的话，因为这个导致了一次 `MLE` 。
 
