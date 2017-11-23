@@ -6,3 +6,5 @@ dp, `dp[i][diff] += diff[j][diff] + 1`.
 
 `std::map` 的 `operator[]` 会插入一个 `0` 值如果 key 不存在的话，因为这个导致了一次 `MLE` 。
 
+还有就是注意 `long long` ...
+
