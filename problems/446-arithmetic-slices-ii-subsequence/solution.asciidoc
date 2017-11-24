@@ -1,3 +1,8 @@
+== problem info
+
+difficulty: hard
+tags: dp
+
 == main idea
 
 dp, `dp[i][diff] += diff[j][diff] + 1`.
