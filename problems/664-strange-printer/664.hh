@@ -22,8 +22,9 @@ class Solution
     }
 
 public:
-    int strangePrinter(std::string s)
+    int strangePrinter(std::string& s)
     {
+        s.erase(std::unique(s.begin(), s.end()), s.end());
         int n = s.size();
         if (n == 0) return 0;
 
