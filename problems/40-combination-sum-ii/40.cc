@@ -15,12 +15,19 @@ void print(V const& v)
 
 int main()
 {
-    std::vector<int> v{10, 1, 2, 7, 6, 1, 5};
-    auto target = 8;
+    std::vector<int> v;
+    int target;
+
+    v = {10, 1, 2, 7, 6, 1, 5};
+    target = 8;
     print(Solution{}.combinationSum2(v, target));
 
     v = {1, 1, 1, 1, 2, 2, 3, 3, 4};
     target = 4;
+    print(Solution{}.combinationSum2(v, target));
+
+    v = {1};
+    target = 1;
     print(Solution{}.combinationSum2(v, target));
 }
 

@@ -1,0 +1,9 @@
+== problem info
+
+- difficulty: hard
+- tags: array, iteration, mountain
+
+== main idea
+
+可以动态规划正向递推，维护一个 `std::vector<std::set<std::vector<int>>>` 就行。
+
