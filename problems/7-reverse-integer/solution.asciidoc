@@ -1,0 +1,21 @@
+== problem info
+
+- difficulty: easy
+- tags: modulo
+
+== main idea
+
+https://stackoverflow.com/questions/7594508/modulo-operator-with-negative-values[c++ modulo operator with negative values].
+.basic math
+----
+(-7 / 3) => -2
+-2 * 3   => -6
+so a % b => -1
+
+(7 / -3) => -2
+-2 * -3  => 6
+so a % b => 1
+----
+
+maybe using `std::numeric_limits` is a better practice.
+
