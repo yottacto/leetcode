@@ -25,13 +25,13 @@ int main()
     n8.left = &n7;
     n8.right = &n9;
 
-    {
-        auto ans = Solution{}.lowestCommonAncestor(&n6, &n2, &n8);
-        std::cout << ans->val << "\n";
-    }
+    // {
+    //     auto ans = Solution{}.lowestCommonAncestor(&n6, &n2, &n8);
+    //     std::cout << ans->val << "\n";
+    // }
 
     {
-        auto ans = Solution{}.lowestCommonAncestor(&n6, &n2, &n4);
+        auto ans = Solution{}.lowestCommonAncestor(&n6, &n3, &n5);
         std::cout << ans->val << "\n";
     }
 }
