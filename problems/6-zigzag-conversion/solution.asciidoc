@@ -1,0 +1,7 @@
+== problem info
+
+- difficulty: medium
+- tags:
+
+== main idea
+
