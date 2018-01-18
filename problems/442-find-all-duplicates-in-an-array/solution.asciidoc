@@ -1,0 +1,9 @@
+== problem info
+
+- difficulty: medium
+- tags: O(1) space
+
+== main idea
+
+serval idea, `nums[nums[i] - 1] += (n+1)`, `nums[nums[i] - 1] = -nums[nums[i] - 1]` or swap if `nums[nums[i] - 1] != nums[i]`.
+
