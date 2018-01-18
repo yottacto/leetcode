@@ -1,0 +1,7 @@
+== problem info
+
+- difficulty: easy
+- tags: array
+
+== main idea
+
