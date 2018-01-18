@@ -1,0 +1,11 @@
+== problem info
+
+- difficulty: medium
+- tags: pointer
+
+== main idea
+
+faster, slower pointer. `faster = faster->next->next` `slower=slower->next`.
+when they meet, the distance between `head` to `entry_of_circle` is the same as
+`slower(or faster)` to `entry_of_circle`.
+
