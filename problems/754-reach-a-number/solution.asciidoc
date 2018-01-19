@@ -1,0 +1,11 @@
+== problem info
+
+- difficulty: medium
+- tags: math
+
+== main idea
+
+find first `sum >= target` and the `delta = sum - target` is a even number.
+cause this number is minimum and you can always swith the sign of the previous part
+inorder to cancel out the `delta`.
+
