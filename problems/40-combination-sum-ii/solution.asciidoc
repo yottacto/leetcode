@@ -1,7 +1,7 @@
 == problem info
 
 - difficulty: hard
-- tags: array, iteration, mountain
+- tags: dp
 
 == main idea
 
