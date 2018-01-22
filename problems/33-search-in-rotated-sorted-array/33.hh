@@ -9,7 +9,7 @@ public:
     {
         int l = 0;
         int r = a.size() - 1;
-        while (l < r) {
+        while (l <= r) {
             auto mid = (l + r) / 2;
             if (a[mid] == target)
                 return mid;
@@ -22,7 +22,7 @@ public:
             else
                 l = mid + 1;
         }
-        return (l > r || a[l] != target) ? -1 : l;
+        return l > r ? -1 : l;
     }
 };
 
