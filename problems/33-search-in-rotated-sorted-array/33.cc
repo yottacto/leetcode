@@ -5,6 +5,9 @@ int main()
 {
     std::vector<int> v;
 
+    v = {};
+    std::cout << Solution{}.search(v, 0) << "\n";
+
     v = {3, 1};
     std::cout << Solution{}.search(v, 0) << "\n";
 
