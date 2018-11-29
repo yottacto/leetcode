@@ -1,0 +1,13 @@
+#!/usr/bin/fish
+
+# echo "usage: add <problem id> <problem name>"
+
+set -l root (git rev-parse --show-toplevel)
+set -l num $argv[1]
+set -l name $argv[2]
+set -l path "$root/problems/$num-$name"
+
+mkdir $path
+echo -e "#pragma once\n" >> "$path/$num.hh"
+echo -e "#include \"$num.hh\"\n\nint main()\n{\n}" >> "$path/$num.cc"
+
