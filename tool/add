@@ -1,12 +1,14 @@
 #!/usr/bin/fish
 
-# echo "usage: add <problem id> <problem name>"
+# echo "usage: add 646. Maximum Length of Pair Chain"
+# and it will get num=646, name=maximum-length-of-pair-chain
 
 set -l root (git rev-parse --show-toplevel)
-set -l num $argv[1]
-set -l name $argv[2]
+set -l num (string replace -a . '' $argv[1])
+set -l name (string lower $argv[2..-1] | string join -)
 set -l path "$root/problems/$num-$name"
 
+echo $path
 mkdir $path
 echo -e "#pragma once\n" >> "$path/$num.hh"
 echo -e "#include \"$num.hh\"\n\nint main()\n{\n}" >> "$path/$num.cc"
