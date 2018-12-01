@@ -13,17 +13,27 @@ struct Solution
         g[v].emplace_back(u);
     }
 
-    std::pair<int, int> dfs(int u, std::vector<int>& record, int parent = -1, int depth = 1)
+    std::pair<int, int> dfs(
+        int u,
+        std::vector<int>& record,
+        bool opt = false,
+        int parent = -1,
+        int depth = 1
+    )
     {
-        record.emplace_back(u);
+        if (opt) {
+            record.emplace_back(u);
+        }
         std::pair<int, int> res{depth, u};
         for (auto v : g[u]) {
             if (v == parent) continue;
-            res = std::max(res, dfs(v, record, u, depth + 1));
+            res = std::max(res, dfs(v, record, opt, u, depth + 1));
         }
-        if (depth > (int)path.size())
-            path = record;
-        record.pop_back();
+        if (opt) {
+            if (depth > (int)path.size())
+                path = record;
+            record.pop_back();
+        }
         return res;
     }
 
@@ -38,7 +48,7 @@ struct Solution
 
         std::vector<int> record;
         auto u = dfs(0, record).second;
-        dfs(u, record);
+        dfs(u, record, true);
 
         int len = path.size();
         if (len&1)
