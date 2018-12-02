@@ -1,3 +1,7 @@
+// NOTE: you may notice that knowing pre-order and post-order can't uniquely
+// determine the tree, some subtree maybe either in left or right (when the
+// sibling is empty), and the total number of possible trees is 2 to the number
+// of these kind of uncertain subtrees's root.
 #pragma once
 #include <algorithm>
 #include <iterator>
