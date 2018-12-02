@@ -45,6 +45,8 @@ struct Solution
     void dfs(std::string board, std::string hand, int depth = 0)
     {
         // std::cout << "dfs: " << board << " - " << hand << " dep: " << depth << "\n";
+        if (depth > step)
+            return;
         if (board.empty()) {
             step = std::min(step, depth);
             return;
