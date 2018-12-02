@@ -1,4 +1,4 @@
-// the O(1) space solution is that set start=n-1, end=0, and maintain sum like
+// NOTE: the O(1) space solution is that set start=n-1, end=0, and maintain sum like
 // below, every time if sum is >= 0, extend end, every time sum is < 0,
 // start--, keep doing this when we handled all station and the start is our
 // solution if there is one.
