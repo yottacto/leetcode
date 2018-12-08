@@ -1,3 +1,4 @@
+// actually, it has an O(nlog(l)) solution (math)
 #pragma once
 #include <algorithm>
 
