@@ -3,28 +3,19 @@
 
 struct Solution
 {
-    int last[30] = {};
-    int prev[10007];
-    int n;
-
-    int id(std::string s, int i)
-    {
-        return s[i-1] - 'A';
-    }
+    int last[256][2] = {};
 
     int uniqueLetterString(std::string s)
     {
-        n = s.size();
-        for (auto i = 1; i <= n; i++) {
-            prev[i] = last[id(s, i)];
-            last[id(s, i)] = i;
-        }
+        int n = s.size();
         auto res = 0;
         for (auto i = 1; i <= n; i++) {
-            auto p = prev[i];
-            auto pp = prev[prev[i]];
-            res += -1 * (p - pp) * (n - i + 1);
-            res += +1 * (i - p) * (n - i + 1);
+            int tid = s[i - 1];
+            auto p = last[tid][0];
+            auto pp = last[tid][1];
+            res += (i - p) * (n - i + 1) - (p - pp) * (n - i + 1);
+            last[tid][1] = last[tid][0];
+            last[tid][0] = i;
         }
         return res;
     }
