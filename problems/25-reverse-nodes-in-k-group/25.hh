@@ -1,3 +1,5 @@
+// I think it can't be done in only one iteration. You can implment it in
+// recursive way, which will be very neat.
 #pragma once
 
 // // Definition for singly-linked list.
