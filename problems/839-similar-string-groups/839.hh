@@ -6,7 +6,7 @@
 
 struct dsu
 {
-    dsu(int n) : n(n), parent(n)
+    dsu(int n) : n(n), _size(n), parent(n)
     {
         std::iota(parent.begin(), parent.end(), 0);
     }
@@ -27,19 +27,19 @@ struct dsu
     {
         auto ti = get_parent(i);
         auto tj = get_parent(j);
-        if (ti != tj)
+        if (ti != tj) {
             parent[ti] = tj;
+            _size--;
+        }
     }
 
-    auto count()
+    auto size() const
     {
-        for (auto& i : parent)
-            i = get_parent(i);
-        std::unordered_set<int> id{parent.begin(), parent.end()};
-        return id.size();
+        return _size;
     }
 
     int n;
+    int _size;
     std::vector<int> parent;
 };
 
@@ -47,24 +47,11 @@ struct Solution
 {
     auto similar(std::string const& a, std::string const& b)
     {
-        if (a.size() != b.size())
-            return false;
-        int first = -1;
-        int second = -1;
+        auto count = 0;
         for (auto i = 0; i < (int)a.size(); i++)
-            if (a[i] != b[i]) {
-                if (second != -1) {
-                    return false;
-                } else if (first != -1) {
-                    second = i;
-                    if (a[first] != b[second] || a[second] != b[first])
-                        return false;
-                } else {
-                    first = i;
-                }
-            }
-        return (first != -1 && second != -1)
-            || (first == -1 && second == -1);
+            if (a[i] != b[i] && ++count > 2)
+                return false;
+        return true;
     }
 
     int numSimilarGroups(std::vector<std::string>& a)
@@ -78,7 +65,7 @@ struct Solution
                 if (similar(a[i], a[j]))
                     dsu.connect(i, j);
             }
-        return dsu.count();
+        return dsu.size();
     }
 };
 
