@@ -5,7 +5,7 @@
 int main()
 {
     // std::cout << Solution{}.kSimilarity("ab", "ba") << "\n";
-    // std::cout << Solution{}.kSimilarity("abc", "bca") << "\n";
+    std::cout << Solution{}.kSimilarity("abc", "bca") << "\n";
     // std::cout << Solution{}.kSimilarity("abac", "baca") << "\n";
 
     // std::cout << Solution{}.kSimilarity(
@@ -18,10 +18,10 @@ int main()
     //     "bcaacceeccdeaae"
     // ) << "\n";
 
-    std::cout << Solution{}.kSimilarity(
-        "beabcdfac",
-        "dbbceacfa"
-    ) << "\n";
+    // std::cout << Solution{}.kSimilarity(
+    //     "beabcdfac",
+    //     "dbbceacfa"
+    // ) << "\n";
 
 
     // std::cout << Solution{}.kSimilarity(
