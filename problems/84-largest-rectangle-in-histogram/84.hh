@@ -32,17 +32,7 @@ struct Solution
         auto max = 0;
         for (auto i = 0; i < n; i++)
             max = std::max(max, (right[i] - left[i] - 1) * heights[i]);
-        // print(left);
-        // print(right);
         return max;
-    }
-
-    template <class Vec>
-    void print(Vec const& v)
-    {
-        for (auto i : v)
-            std::cout << i << ", ";
-        std::cout << "\n";
     }
 };
 
