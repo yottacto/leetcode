@@ -3,107 +3,92 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <utility>
 
 struct AllOne
 {
-    std::unordered_map<std::string, int> um;
-    std::unordered_map<std::string, int> pos;
-    std::unordered_map<int, int> first;
-    std::unordered_map<int, int> last;
-    std::vector<std::string> keys;
+    std::unordered_map<std::string, int> id;
+    std::vector<std::string> all;
+    int alloc{0};
 
-    // Inserts a new key <Key> with value 1. Or increments an existing key by 1.
-    void inc(std::string key)
+    std::unordered_map<int, int> um;
+    std::unordered_map<int, int> pos;
+    std::unordered_map<int, std::pair<int, int>> range;
+    std::vector<int> keys;
+
+    auto get_kid(std::string const& key)
     {
-        if (!um.count(key)) {
-            um[key] = 1;
-            keys.emplace_back(key);
-            pos[key] = keys.size() - 1;
-            last[1] = keys.size();
-            if (!first.count(1))
-                first[1] = keys.size() - 1;
-        } else {
-            auto v = ++um[key];
-            pos[keys[first[v - 1]]] = pos[key];
-            std::swap(keys[pos[key]], keys[first[v - 1]]);
-            pos[key] = first[v - 1];
-            first[v - 1]++;
-            if (last[v - 1] == first[v - 1])  {
-                first.erase(v - 1);
-                last.erase(v - 1);
-            }
-            if (last.count(v)) {
-                last[v]++;
-            } else {
-                first[v] = pos[key];
-                last[v] = pos[key] + 1;
-            }
+        if (!id.count(key)) {
+            id[key] = alloc++;
+            all.emplace_back(key);
         }
-
-        print();
+        return id[key];
     }
 
-    // Decrements an existing key by 1. If Key's value is 1, remove it from the data structure.
-    void dec(std::string key)
+    // Inserts a new key <Key> with value 1. Or increments an existing key by
+    // 1.
+    void inc(std::string const& key)
     {
-        if (!um.count(key)) return;
-        auto v = --um[key];
-        pos[keys[last[v + 1] - 1]] = pos[key];
-        std::swap(keys[pos[key]], keys[last[v + 1] - 1]);
-        pos[key] = last[v + 1] - 1;
-        last[v + 1]--;
-        if (last[v + 1] == first[v + 1])  {
-            first.erase(v + 1);
-            last.erase(v + 1);
-        }
-        if (!v) {
-            um.erase(key);
-            keys.pop_back();
-            pos.erase(key);
+        auto kid = get_kid(key);
+        if (!um.count(kid)) {
+            um[kid] = 1;
+            keys.emplace_back(kid);
+            pos[kid] = keys.size() - 1;
+            if (!range.count(1))
+                range[1].first = keys.size() - 1;
+            range[1].second = keys.size();
         } else {
-            if (first.count(v)) {
-                first[v]--;
-            } else {
-                first[v] = pos[key];
-                last[v] = pos[key] + 1;
-            }
+            auto v = ++um[kid];
+            pos[keys[range[v - 1].first]] = pos[kid];
+            std::swap(keys[pos[kid]], keys[range[v - 1].first]);
+            pos[kid] = range[v - 1].first;
+            range[v - 1].first++;
+            if (range[v - 1].first == range[v - 1].second)
+                range.erase(v - 1);
+            if (range.count(v))
+                range[v].second++;
+            else
+                range[v] = {pos[kid], pos[kid] + 1};
         }
-        print();
+    }
+
+    // Decrements an existing key by 1. If Key's value is 1, remove it from the
+    // data structure.
+    void dec(std::string const& key)
+    {
+        auto kid = get_kid(key);
+        if (!um.count(kid)) return;
+        auto v = --um[kid];
+        pos[keys[range[v + 1].second - 1]] = pos[kid];
+        std::swap(keys[pos[kid]], keys[range[v + 1].second - 1]);
+        pos[kid] = range[v + 1].second - 1;
+        range[v + 1].second--;
+        if (range[v + 1].first == range[v + 1].second)
+            range.erase(v + 1);
+        if (!v) {
+            um.erase(kid);
+            keys.pop_back();
+            pos.erase(kid);
+        } else {
+            if (range.count(v))
+                range[v].first--;
+            else
+                range[v] = {pos[kid], pos[kid] + 1};
+        }
     }
 
     // Returns one of the keys with maximal value.
     std::string getMaxKey()
     {
         if (keys.empty()) return {};
-        return keys.front();
+        return all[keys.front()];
     }
 
     // Returns one of the keys with Minimal value.
     std::string getMinKey()
     {
         if (keys.empty()) return {};
-        return keys.back();
+        return all[keys.back()];
     }
-
-    void print()
-    {
-        return;
-        if (keys.empty()) {
-            std::cout << "[]\n";
-            return;
-        }
-        for (auto const& p : um)
-            std::cout << p.first << "->" << p.second << ", ";
-        std::cout << "\n";
-        for (auto const& key: keys)
-            std::cout << key << ", ";
-        std::cout << "\n";
-        for (auto i = um[keys[0]]; i >= 1; i--) {
-            if (!first.count(i)) continue;
-            std::cout << "range[" << i << "]=[" << first[i] << "," << last[i] << ") ";
-        }
-        std::cout << "\n";
-    }
-
 };
 
