@@ -1,37 +1,25 @@
 #pragma once
 #include <algorithm>
 #include <vector>
-#include <queue>
 
 struct Solution
 {
-    int n;
-    std::vector<int> left;
-    std::vector<int> right;
-
-    void calc(std::vector<int> const& h, std::vector<int>& d, bool left = true)
+    int largestRectangleArea(std::vector<int>& heights)
     {
-        d.resize(n);
-        std::deque<int> dq;
-        for (auto i = left ? 0 : n - 1; left ? i < n : i >= 0; left ? i++ : i--) {
-            while (!dq.empty() && h[dq.back()] >= h[i])
-                dq.pop_back();
-            d[i] = dq.empty()
-                ? (left ? -1 : n)
-                : dq.back();
-            dq.emplace_back(i);
-        }
-
-    }
-
-    int largestRectangleArea(std::vector<int> const& heights)
-    {
-        n = heights.size();
-        calc(heights, left);
-        calc(heights, right, false);
+        heights.emplace_back(0);
+        int n = heights.size();
+        std::vector<int> q;
+        q.reserve(n);
         auto max = 0;
-        for (auto i = 0; i < n; i++)
-            max = std::max(max, (right[i] - left[i] - 1) * heights[i]);
+        for (auto i = 0; i < n; i++) {
+            while (!q.empty() && heights[q.back()] >= heights[i]) {
+                auto h = heights[q.back()];
+                q.pop_back();
+                auto left = q.empty() ? -1 : q.back();
+                max = std::max(max, h * (i - left - 1));
+            }
+            q.emplace_back(i);
+        }
         return max;
     }
 };
