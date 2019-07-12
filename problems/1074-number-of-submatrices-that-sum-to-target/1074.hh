@@ -6,27 +6,19 @@ struct Solution
     int n;
     int m;
     int sum[303][303] = {0};
+    std::unordered_map<int, int> count;
 
     int calc(std::vector<int> const& a, int l, int r, int target)
     {
-        if (l == r) {
-            return target == a[l];
+        auto res = 0;
+        count[0] = 1;
+        for (auto i : a) {
+            if (count.count(i - target))
+                res += count[i - target];
+            count[i]++;
         }
-        int mid = (l + r) / 2;
-        auto res = calc(a, l, mid, target) + calc(a, mid + 1, r, target);
-        std::map<int, int> cc;
-        auto s = 0;
-        for (auto i = mid; i >= l; i--) {
-            s += a[i];
-            cc[s]++;
-        }
-        s = 0;
-        for (auto i = mid + 1; i <= r; i++) {
-            s += a[i];
-            auto t = target - s;
-            if (cc.count(t))
-                res += cc[t];
-        }
+        for (auto i : a)
+            count[i] = 0;
         return res;
     }
 
@@ -45,11 +37,8 @@ struct Solution
         for (auto y = 0; y < m; y++)
             for (auto y2 = y; y2 < m; y2++) {
                 for (auto i = 0; i < n; i++)
-                    a[i] = sum[i + 1][y2 + 1] - sum[i + 1][y] - sum[i][y2 + 1] + sum[i][y];
+                    a[i] = sum[i + 1][y2 + 1] - sum[i + 1][y];
                 auto tmp = calc(a, 0, n - 1, target);
-                // for (auto i : a)
-                //     std::cout << i << " ";
-                // std::cout << "  = " << tmp << "\n";
                 count += tmp;
             }
 
