@@ -6,7 +6,7 @@ struct Solution
 {
     using value_type = std::vector<std::vector<std::string>>;
 
-    std::unordered_map<int, value_type> f;
+    std::vector<value_type> f;
 
     auto is_palindrome(std::string const& s)
     {
@@ -17,31 +17,32 @@ struct Solution
         return true;
     }
 
-    value_type dfs(std::string const& s)
+    void dfs(std::string const& s)
     {
         int len = s.size();
-        if (f.count(len))
-            return f.at(len);
+        if (!f[len].empty())
+            return;
         value_type res;
-        if (is_palindrome(s)) {
+        if (is_palindrome(s))
             res.emplace_back(std::vector<std::string>{s});
-        }
         for (auto l = 1; l < len; l++) {
             auto sub = s.substr(len - l, l);
             if (is_palindrome(sub)) {
-                auto resl = dfs(s.substr(0, len - l));
-                for (auto& i : resl) {
-                    i.emplace_back(sub);
+                dfs(s.substr(0, len - l));
+                for (auto const& i : f[len - l]) {
                     res.emplace_back(i);
+                    res.back().emplace_back(sub);
                 }
             }
         }
-        return f[len] = res;
+        f[len] = std::move(res);
     }
 
     std::vector<std::vector<std::string>> partition(std::string s)
     {
-        return dfs(s);
+        f.resize(s.size() + 1);
+        dfs(s);
+        return f[s.size()];
     }
 };
 
