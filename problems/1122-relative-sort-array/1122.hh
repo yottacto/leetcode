@@ -2,9 +2,10 @@
 #include <vector>
 #include <unordered_map>
 
-class Solution {
-public:
-    std::vector<int> relativeSortArray(std::vector<int>& arr1, std::vector<int>& arr2) {
+struct Solution
+{
+    std::vector<int> relativeSortArray(std::vector<int>& arr1, std::vector<int>& arr2)
+    {
         std::unordered_map<int, int> id;
         for (auto i = 0u; i < arr2.size(); i++)
             id[arr2[i]] = i;

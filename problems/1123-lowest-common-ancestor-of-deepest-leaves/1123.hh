@@ -7,7 +7,8 @@
 //     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 // };
 
-class Solution {
+struct Solution
+{
     int depth{};
     int count{};
     TreeNode* res{};
@@ -37,8 +38,8 @@ class Solution {
         return count;
     }
 
-public:
-    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+    TreeNode* lcaDeepestLeaves(TreeNode* root)
+    {
         dfs(root, 0);
         find(root, 0);
         return res;

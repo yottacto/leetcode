@@ -3,9 +3,10 @@
 #include <numeric>
 #include <utility>
 
-class Solution {
-public:
-    int longestWPI(std::vector<int>& hours) {
+struct Solution
+{
+    int longestWPI(std::vector<int>& hours)
+    {
         // sum[r] - sum[l-1] > (r - l + 1) / 2
         // 2 sum[r] - r > 2 sum[l-1] - (l-1)
 
@@ -17,10 +18,6 @@ public:
         for (auto i = 0; i <= n; i++)
             sum[i] = 2 * sum[i] - i;
 
-        // for (auto i : sum)
-        //     std::cout << i << " ";
-        // std::cout << "\n";
-
         std::vector<std::pair<int, int>> a(n + 1);
         for (auto i = 0; i <= n; i++)
             a[i] = std::make_pair(i, sum[i]);
@@ -30,10 +27,6 @@ public:
         });
         auto left = n + 1;
         auto res = 0;
-
-        // for (auto i : a)
-        //     std::cout << i.first << " " << i.second << ",  ";
-        // std::cout << "\n";
 
         for (auto const& i : a) {
             res = std::max(res, i.first - left);
