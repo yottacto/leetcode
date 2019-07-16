@@ -47,9 +47,8 @@ struct RandomizedSet
     // Get a random element from the set.
     int getRandom()
     {
-        std::array<int, 1> res;
-        std::sample(v.begin(), v.end(), res.begin(), 1, gen);
-        return res.front();
+        std::uniform_int_distribution<> dis(0, v.size() - 1);
+        return v[dis(gen)];
     }
 };
 
