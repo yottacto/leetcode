@@ -3,13 +3,12 @@
 #include <stack>
 #include <unordered_map>
 #include <functional>
-#include <cctype>
 
-std::unordered_map<char, std::function<int(int, int)>> calc{
-    {'+', std::plus<int>{}},
-    {'-', std::minus<int>{}},
-    {'*', std::multiplies<int>{}},
-    {'/', std::divides<int>{}},
+std::unordered_map<std::string, std::function<int(int, int)>> calc{
+    {"+", std::plus<int>{}},
+    {"-", std::minus<int>{}},
+    {"*", std::multiplies<int>{}},
+    {"/", std::divides<int>{}},
 };
 
 struct Solution
@@ -17,13 +16,14 @@ struct Solution
     int evalRPN(std::vector<std::string>& tokens)
     {
         std::stack<int> num;
-        for (auto s : tokens) {
-            if (s.size() == 1 && !std::isdigit(s[0])) {
+        for (auto const& s : tokens) {
+            auto const& it = calc.find(s);
+            if (it != calc.end()) {
                 auto rhs = num.top();
                 num.pop();
                 auto lhs = num.top();
                 num.pop();
-                num.emplace(calc[s[0]](lhs, rhs));
+                num.emplace(it->second(lhs, rhs));
             } else {
                 num.emplace(std::stoi(s));
             }
